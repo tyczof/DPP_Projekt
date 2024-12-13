@@ -40,3 +40,4 @@ jobs:
         VALIDATE_PYTHON_PYLINT: true
         VALIDATE_PYTHON_FLAKE8: true
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        INPUT_EXTRA_ARGS: "--max-line-length=120"

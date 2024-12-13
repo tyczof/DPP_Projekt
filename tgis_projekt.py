@@ -1,16 +1,7 @@
 import random
 import matplotlib.pyplot as plt
 import numpy as np
-import itertools
 
-TILE_EMPTY = 0
-TILE_CRATE = 1
-
-# Maze must have an ODD number of rows and columns.
-# Walls go on EVEN rows/columns.
-# Openings go on ODD rows/columns
-MAZE_HEIGHT = 71
-MAZE_WIDTH = 71
 
 def _create_grid_with_cells(width, height):
     """ Create a grid with empty cells on odd row/column combinations. """
@@ -28,6 +19,7 @@ def _create_grid_with_cells(width, height):
             else:
                 grid[row].append(TILE_CRATE)
     return grid
+
 
 def make_maze_depth_first(maze_width, maze_height):
     """ Generate a maze using the Depth-First Search algorithm. """
@@ -62,38 +54,6 @@ def make_maze_depth_first(maze_width, maze_height):
 
     return maze
 
-maze = make_maze_depth_first(MAZE_WIDTH, MAZE_HEIGHT)
-
-# Labirynt - 1 to ściana, 0 to przechodnia ścieżka
-# maze = [
-#     [0, 1, 0, 0, 0],
-#     [0, 1, 0, 1, 0],
-#     [0, 0, 0, 1, 0],
-#     [0, 1, 1, 1, 0],
-#     [0, 0, 0, 0, 0]
-# ]
-
-# maze = [
-#     [0, 1, 0, 0, 0, 0, 1, 0, 0, 0],
-#     [0, 1, 0, 1, 0, 0, 0, 0, 0, 1],
-#     [0, 0, 0, 1, 1, 1, 1, 1, 0, 0],
-#     [0, 0, 1, 1, 0, 0, 0, 0, 1, 0],
-#     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-# ]
-
-# maze = [
-#     [0, 1, 1, 1, 1, 1, 0, 0, 0, 0],
-#     [0, 1, 1, 1, 1, 1, 0, 1, 1, 0],
-#     [0, 0, 0, 0, 0, 1, 0, 0, 1, 0],
-#     [1, 1, 1, 1, 0, 1, 0, 1, 1, 0],
-#     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-#     [1, 0, 1, 1, 1, 1, 1, 1, 0, 1],
-#     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-# ]
-
-# Define start and end points for pathfinding
-start = (1, 1)  # Start in top left corner
-end = (len(maze[0]) - 2, len(maze) - 2)  # End in bottom right corner
 
 def dfs(maze, start, end):
     """ Find a path in the maze using Depth-First Search. """
@@ -126,6 +86,7 @@ def dfs(maze, start, end):
 
     return None  # No path found
 
+
 def print_maze_with_path(maze, path):
     """ Print the maze with the path highlighted. """
     maze_copy = [row[:] for row in maze]
@@ -133,6 +94,7 @@ def print_maze_with_path(maze, path):
         maze_copy[x][y] = 2  # Mark the path with a distinct value
     for row in maze_copy:
         print(" ".join(str(cell) for cell in row))
+
 
 def draw_maze(maze, path=None):
     """ Visualize the maze with the path drawn in multiple colors. """
@@ -158,7 +120,50 @@ def draw_maze(maze, path=None):
 
     plt.show()
 
+
 if __name__ == "__main__":
+    TILE_EMPTY = 0
+    TILE_CRATE = 1
+
+    # Maze must have an ODD number of rows and columns.
+    # Walls go on EVEN rows/columns.
+    # Openings go on ODD rows/columns
+    MAZE_HEIGHT = 71
+    MAZE_WIDTH = 71
+
+    maze = make_maze_depth_first(MAZE_WIDTH, MAZE_HEIGHT)
+
+    # Labirynt - 1 to ściana, 0 to przechodnia ścieżka
+    # maze = [
+    #     [0, 1, 0, 0, 0],
+    #     [0, 1, 0, 1, 0],
+    #     [0, 0, 0, 1, 0],
+    #     [0, 1, 1, 1, 0],
+    #     [0, 0, 0, 0, 0]
+    # ]
+
+    # maze = [
+    #     [0, 1, 0, 0, 0, 0, 1, 0, 0, 0],
+    #     [0, 1, 0, 1, 0, 0, 0, 0, 0, 1],
+    #     [0, 0, 0, 1, 1, 1, 1, 1, 0, 0],
+    #     [0, 0, 1, 1, 0, 0, 0, 0, 1, 0],
+    #     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    # ]
+
+    # maze = [
+    #     [0, 1, 1, 1, 1, 1, 0, 0, 0, 0],
+    #     [0, 1, 1, 1, 1, 1, 0, 1, 1, 0],
+    #     [0, 0, 0, 0, 0, 1, 0, 0, 1, 0],
+    #     [1, 1, 1, 1, 0, 1, 0, 1, 1, 0],
+    #     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    #     [1, 0, 1, 1, 1, 1, 1, 1, 0, 1],
+    #     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    # ]
+
+    # Define start and end points for pathfinding
+    start = (1, 1)  # Start in top left corner
+    end = (len(maze[0]) - 2, len(maze) - 2)  # End in bottom right corner
+
     result = dfs(maze, start, end)
 
     if result:

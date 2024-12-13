@@ -1,5 +1,5 @@
-import pytest
 from tgis_projekt import _create_grid_with_cells, make_maze_depth_first, dfs
+
 
 # Test to verify the creation of a grid with the specified dimensions and structure
 def test_create_grid_with_cells():
@@ -13,6 +13,7 @@ def test_create_grid_with_cells():
     # Verify that a corner cell is a wall
     assert grid[0][0] == 1
 
+
 # Test to check the maze generation using the depth-first algorithm
 def test_make_maze_depth_first():
     maze = make_maze_depth_first(5, 5)
@@ -22,6 +23,7 @@ def test_make_maze_depth_first():
     # Verify that the maze contains both empty cells and walls
     assert any(0 in row for row in maze)  # At least one empty cell
     assert any(1 in row for row in maze)  # At least one wall
+
 
 # Test to ensure the DFS algorithm finds a valid path in a simple maze
 def test_dfs():
@@ -35,6 +37,7 @@ def test_dfs():
     path = dfs(maze, start, end)
     # Verify that the path found matches the expected result
     assert path == [(0, 0), (1, 0), (2, 0), (2, 1), (2, 2)]
+
 
 # Test to confirm DFS handles cases where no path exists
 def test_dfs_no_path():
