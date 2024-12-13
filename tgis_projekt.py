@@ -7,7 +7,7 @@ Original file is located at
     https://colab.research.google.com/drive/1Gfr4_Il1jC1ymErzzeMz6j158YQv7lXk
 """
 
-pip install arcade
+
 
 # https://api.arcade.academy/en/latest/examples/maze_depth_first.html#maze-depth-first
 
