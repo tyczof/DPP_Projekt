@@ -10,7 +10,7 @@ Original file is located at
 pip install arcade
 
 # https://api.arcade.academy/en/latest/examples/maze_depth_first.html#maze-depth-first
-
+# pip install arcade
 
 import random
 import arcade
