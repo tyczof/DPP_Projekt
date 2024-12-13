@@ -47,3 +47,5 @@ jobs:
           asset_path: ./release-artifacts.tar.gz
           asset_name: release-artifacts.tar.gz
           asset_content_type: application/gzip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
