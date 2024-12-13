@@ -2,6 +2,9 @@ import random
 import matplotlib.pyplot as plt
 import numpy as np
 
+TILE_EMPTY = 0
+TILE_CRATE = 1
+
 
 def _create_grid_with_cells(width, height):
     """ Create a grid with empty cells on odd row/column combinations. """
@@ -122,9 +125,6 @@ def draw_maze(maze, path=None):
 
 
 if __name__ == "__main__":
-    TILE_EMPTY = 0
-    TILE_CRATE = 1
-
     # Maze must have an ODD number of rows and columns.
     # Walls go on EVEN rows/columns.
     # Openings go on ODD rows/columns
