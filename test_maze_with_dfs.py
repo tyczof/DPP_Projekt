@@ -1,4 +1,3 @@
-import pytest
 from tgis_projekt import _create_grid_with_cells, make_maze_depth_first, dfs
 
 
