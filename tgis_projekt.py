@@ -10,7 +10,7 @@ def _create_grid_with_cells(width, height):
     """
     Create a grid structure for the maze with walls and empty cells.
 
-    Walls (1) are placed at even rows and columns, and empty cells (0) 
+    Walls (1) are placed at even rows and columns, and empty cells (0)
     are placed at odd rows and columns.
 
     Args:
