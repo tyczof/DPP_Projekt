@@ -17,6 +17,7 @@ This project implements a maze generation algorithm and pathfinding using Depth-
 ├── test_maze_with_dfs.py      # Tests for grid creation, maze generation, and pathfinding
 ├── tgis_projekt.py            # Maze generation and pathfinding logic
 ├── requirements.txt           # Python dependencies
+├── .gitignore                 # Files and directories to be ignored by Git
 ├── .github/
 │   ├── workflows/
 │   │   ├── ci.yml             # Continuous Integration pipeline
