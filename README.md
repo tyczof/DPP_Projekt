@@ -44,8 +44,8 @@ pytest
 
 ## Clone the repository:
 ```bash
-git clone <repository-url>
-cd <repository-folder>
+git clone https://github.com/tyczof/DPP_Projekt
+cd DPP_Projekt
 ```
 
 ## Install dependencies:
