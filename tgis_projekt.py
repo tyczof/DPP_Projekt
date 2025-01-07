@@ -1,3 +1,13 @@
+"""
+Maze generation and Depth-First Search (DFS) implementation.
+
+This module includes:
+- A function to generate a grid structure with walls and empty cells.
+- A maze generator using the Depth-First Search algorithm.
+- A pathfinding algorithm using DFS.
+- Visualization tools for the maze and its paths.
+"""
+
 import random
 import matplotlib.pyplot as plt
 import numpy as np
@@ -47,12 +57,13 @@ def make_maze_depth_first(maze_width, maze_height):
     Returns:
         list: A 2D list representing the generated maze with walls (1) and paths (0).
     """
-    maze = _create_grid_with_cells(maze_width, maze_height)
-
-    w = (len(maze[0]) - 1) // 2  # Logical width of the maze (excluding walls)
-    h = (len(maze) - 1) // 2    # Logical height of the maze (excluding walls)
-
-    vis = [[0] * w + [1] for _ in range(h)] + [[1] * (w + 1)]
+    local_maze = _create_grid_with_cells(maze_width, maze_height)
+    logical_width = (len(local_maze[0]) - 1) // 2
+    logical_height = (len(local_maze) - 1) // 2
+    visited = (
+    [[0] * logical_width + [1] for _ in range(logical_height)]
+    + [[1] * (logical_width + 1)]
+)
 
     def walk(x, y):
         """
@@ -62,36 +73,36 @@ def make_maze_depth_first(maze_width, maze_height):
             x (int): The current x-coordinate in logical grid space.
             y (int): The current y-coordinate in logical grid space.
         """
-        vis[y][x] = 1
+        visited[y][x] = 1
         directions = [(x - 1, y), (x, y + 1), (x + 1, y), (x, y - 1)]
         random.shuffle(directions)
         for xx, yy in directions:
-            if vis[yy][xx]:
+            if visited[yy][xx]:
                 continue
             if xx == x:
-                maze[max(y, yy) * 2][x * 2 + 1] = TILE_EMPTY
+                local_maze[max(y, yy) * 2][x * 2 + 1] = TILE_EMPTY
             if yy == y:
-                maze[y * 2 + 1][max(x, xx) * 2] = TILE_EMPTY
+                local_maze[y * 2 + 1][max(x, xx) * 2] = TILE_EMPTY
             walk(xx, yy)
 
-    walk(random.randrange(w), random.randrange(h))
-    return maze
+    walk(random.randrange(logical_width), random.randrange(logical_height))
+    return local_maze
 
 
-def dfs(maze, start, end):
+def dfs(maze_data, start_point, end_point):
     """
     Find a path from the start to the end in a maze using the Depth-First Search algorithm.
 
     Args:
-        maze (list): A 2D list representing the maze.
-        start (tuple): The starting position as (row, column).
-        end (tuple): The ending position as (row, column).
+        maze_data (list): A 2D list representing the maze.
+        start_point (tuple): The starting position as (row, column).
+        end_point (tuple): The ending position as (row, column).
 
     Returns:
         list: A list of coordinates representing the path, or None if no path exists.
     """
-    rows, cols = len(maze), len(maze[0])
-    stack = [(start, [start])]
+    rows, cols = len(maze_data), len(maze_data[0])
+    stack = [(start_point, [start_point])]
     visited = set()
 
     def get_neighbors(pos):
@@ -109,13 +120,13 @@ def dfs(maze, start, end):
         directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
         for dx, dy in directions:
             nx, ny = x + dx, y + dy
-            if 0 <= nx < rows and 0 <= ny < cols and maze[nx][ny] == TILE_EMPTY:
+            if 0 <= nx < rows and 0 <= ny < cols and maze_data[nx][ny] == TILE_EMPTY:
                 neighbors.append((nx, ny))
         return neighbors
 
     while stack:
         current_pos, path = stack.pop()
-        if current_pos == end:
+        if current_pos == end_point:
             return path
         if current_pos not in visited:
             visited.add(current_pos)
@@ -125,44 +136,37 @@ def dfs(maze, start, end):
     return None
 
 
-def print_maze_with_path(maze, path):
+def print_maze_with_path(maze_data, path):
     """
     Print the maze with a path highlighted.
 
     Args:
-        maze (list): A 2D list representing the maze.
+        maze_data (list): A 2D list representing the maze.
         path (list): A list of coordinates representing the path.
-
-    Returns:
-        None
     """
-    maze_copy = [row[:] for row in maze]
+    maze_copy = [row[:] for row in maze_data]
     for x, y in path:
         maze_copy[x][y] = 2
     for row in maze_copy:
         print(" ".join(str(cell) for cell in row))
 
 
-def draw_maze(maze, path=None):
+def draw_maze(maze_data, path=None):
     """
     Visualize the maze and an optional path using Matplotlib.
 
     Args:
-        maze (list): A 2D list representing the maze.
+        maze_data (list): A 2D list representing the maze.
         path (list, optional): A list of coordinates representing the path.
-
-    Returns:
-        None
     """
-    rows, cols = len(maze), len(maze[0])
-    maze_image = np.array(maze)
-
-    fig, ax = plt.subplots()
+    rows, cols = len(maze_data), len(maze_data[0])
+    maze_image = np.array(maze_data)
+    _, ax = plt.subplots()  # Removed unused variable 'fig'
     ax.imshow(maze_image, cmap='binary', origin='upper')
 
     if path:
         path_x, path_y = zip(*path)
-        ax.plot(path_y, path_x, color='g', linewidth=0, marker='o', linestyle='')
+        ax.plot(path_y, path_x, color='g', linewidth=2, marker='o', linestyle='')
 
     ax.set_xticks(np.arange(-.5, cols, 1))
     ax.set_yticks(np.arange(-.5, rows, 1))
@@ -177,16 +181,16 @@ if __name__ == "__main__":
     MAZE_HEIGHT = 71
     MAZE_WIDTH = 71
 
-    maze = make_maze_depth_first(MAZE_WIDTH, MAZE_HEIGHT)
-    start = (1, 1)
-    end = (MAZE_HEIGHT - 2, MAZE_WIDTH - 2)
+    maze_result = make_maze_depth_first(MAZE_WIDTH, MAZE_HEIGHT)
+    start_pos = (1, 1)
+    end_pos = (MAZE_HEIGHT - 2, MAZE_WIDTH - 2)
 
-    result = dfs(maze, start, end)
+    result_path = dfs(maze_result, start_pos, end_pos)
 
-    if result:
+    if result_path:
         print("Path found:")
-        print_maze_with_path(maze, result)
-        draw_maze(maze, result)
+        print_maze_with_path(maze_result, result_path)
+        draw_maze(maze_result, result_path)
     else:
         print("No path found.")
-        draw_maze(maze)
+        draw_maze(maze_result)

@@ -1,4 +1,13 @@
+"""
+Unit tests for maze generation and Depth-First Search (DFS) algorithm.
+
+This module contains tests for:
+- Creating a grid with walls and empty cells.
+- Generating a maze using DFS.
+- Finding paths using the DFS algorithm.
+"""
 from tgis_projekt import _create_grid_with_cells, make_maze_depth_first, dfs
+
 
 def test_create_grid_with_cells():
     """
@@ -16,6 +25,7 @@ def test_create_grid_with_cells():
     assert grid[1][1] == 0  # Odd position should be empty
     assert grid[0][0] == 1  # Corner position should be a wall
 
+
 def test_make_maze_depth_first():
     """
     Test the maze generation using the Depth-First Search algorithm.
@@ -29,6 +39,7 @@ def test_make_maze_depth_first():
     assert all(len(row) == 5 for row in maze)
     assert any(0 in row for row in maze)  # Ensure at least one empty cell
     assert any(1 in row for row in maze)  # Ensure walls exist
+
 
 def test_dfs():
     """
@@ -48,6 +59,7 @@ def test_dfs():
     path = dfs(maze, start, end)
     expected_path = [(0, 0), (1, 0), (2, 0), (2, 1), (2, 2)]
     assert path == expected_path
+
 
 def test_dfs_no_path():
     """
