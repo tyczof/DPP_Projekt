@@ -44,7 +44,7 @@ jobs:
 
   deploy-docs:
     runs-on: ubuntu-latest
-    needs: test-and-lint
+    needs: test-and-lint  # Wykonuje się po zakończeniu testów i lintowania
 
     steps:
     - name: Checkout repository
@@ -55,10 +55,10 @@ jobs:
       with:
         python-version: '3.x'
 
-    - name: Install MkDocs and theme
+    - name: Install MkDocs and dependencies
       run: |
-        pip install mkdocs
-        pip install mkdocs-material 
+        python -m pip install --upgrade pip
+        pip install mkdocs mkdocs-material
 
     - name: Build and deploy documentation
       run: mkdocs gh-deploy --force
