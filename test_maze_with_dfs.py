@@ -1,53 +1,80 @@
+"""
+Unit tests for maze generation and Depth-First Search (DFS) algorithm.
+
+This module contains tests for:
+- Creating a grid with walls and empty cells.
+- Generating a maze using DFS.
+- Finding paths using the DFS algorithm.
+"""
 from tgis_projekt import _create_grid_with_cells, make_maze_depth_first, dfs
 
 
-# Test to verify the creation of a grid with the specified dimensions and structure
 def test_create_grid_with_cells():
+    """
+    Test the creation of a grid with walls and empty cells.
+
+    Verifies that:
+    - The grid has the specified dimensions.
+    - Odd positions contain empty cells (0).
+    - Border positions contain walls (1).
+    """
     width, height = 5, 5
     grid = _create_grid_with_cells(width, height)
-    # Ensure the grid has the correct dimensions
     assert len(grid) == height
     assert all(len(row) == width for row in grid)
-    # Verify that a cell at an odd position is empty
-    assert grid[1][1] == 0
-    # Verify that a corner cell is a wall
-    assert grid[0][0] == 1
+    assert grid[1][1] == 0  # Odd position should be empty
+    assert grid[0][0] == 1  # Corner position should be a wall
 
 
-# Test to check the maze generation using the depth-first algorithm
 def test_make_maze_depth_first():
+    """
+    Test the maze generation using the Depth-First Search algorithm.
+
+    Verifies that:
+    - The generated maze has the correct dimensions.
+    - The maze contains both empty paths (0) and walls (1).
+    """
     maze = make_maze_depth_first(5, 5)
-    # Ensure the maze dimensions are as expected
     assert len(maze) == 5
     assert all(len(row) == 5 for row in maze)
-    # Verify that the maze contains both empty cells and walls
-    assert any(0 in row for row in maze)  # At least one empty cell
-    assert any(1 in row for row in maze)  # At least one wall
+    assert any(0 in row for row in maze)  # Ensure at least one empty cell
+    assert any(1 in row for row in maze)  # Ensure walls exist
 
 
-# Test to ensure the DFS algorithm finds a valid path in a simple maze
 def test_dfs():
+    """
+    Test the DFS algorithm on a simple maze.
+
+    Verifies that:
+    - The algorithm finds a valid path from the start to the target.
+    - The path matches the expected solution.
+    """
     maze = [
         [0, 1, 0],
         [0, 1, 0],
         [0, 0, 0]
     ]
-    start = (0, 0)  # Starting point of the maze
-    end = (2, 2)    # Target point of the maze
+    start = (0, 0)
+    end = (2, 2)
     path = dfs(maze, start, end)
-    # Verify that the path found matches the expected result
-    assert path == [(0, 0), (1, 0), (2, 0), (2, 1), (2, 2)]
+    expected_path = [(0, 0), (1, 0), (2, 0), (2, 1), (2, 2)]
+    assert path == expected_path
 
 
-# Test to confirm DFS handles cases where no path exists
 def test_dfs_no_path():
+    """
+    Test the DFS algorithm when no path exists.
+
+    Verifies that:
+    - The algorithm correctly identifies there is no solution.
+    - The returned value is None.
+    """
     maze = [
         [0, 1, 0],
         [1, 1, 0],
         [0, 0, 0]
     ]
-    start = (0, 0)  # Starting point
-    end = (1, 2)    # Target point with no path
+    start = (0, 0)
+    end = (1, 2)
     path = dfs(maze, start, end)
-    # Ensure the returned path is None, indicating no solution
     assert path is None
