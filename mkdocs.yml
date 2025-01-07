@@ -1,8 +1,0 @@
-site_name: My Documentation
-theme:
-  name: 'material'
-nav:
-  - DFS w labiryncie: index.md
-  - Generator Labiryntu: generator.md
-  - Algorytm DFS: pathfinding.md
-  - Wizualizacja: visualization.md
