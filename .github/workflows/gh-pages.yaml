@@ -27,8 +27,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install -r mkdocs
-          pip install -r mkdocs-material
+          pip install -r requirements.txt
 
       - name: Build documentation
         run: |
