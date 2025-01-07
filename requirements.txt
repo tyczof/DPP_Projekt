@@ -4,3 +4,4 @@ flake8==6.0.0
 matplotlib==3.9.4
 mkdocs
 mkdocs-material
+numpy==1.23.5
