@@ -1,3 +1,11 @@
+"""
+Unit tests for maze generation and Depth-First Search (DFS) algorithm.
+
+This module contains tests for:
+- Creating a grid with walls and empty cells.
+- Generating a maze using DFS.
+- Finding paths using the DFS algorithm.
+"""
 from tgis_projekt import _create_grid_with_cells, make_maze_depth_first, dfs
 
 
