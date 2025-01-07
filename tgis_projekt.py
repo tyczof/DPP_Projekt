@@ -61,9 +61,9 @@ def make_maze_depth_first(maze_width, maze_height):
     logical_width = (len(local_maze[0]) - 1) // 2
     logical_height = (len(local_maze) - 1) // 2
     visited = (
-    [[0] * logical_width + [1] for _ in range(logical_height)]
-    + [[1] * (logical_width + 1)]
-)
+        [[0] * logical_width + [1] for _ in range(logical_height)]
+        + [[1] * (logical_width + 1)]
+    )
 
     def walk(x, y):
         """
