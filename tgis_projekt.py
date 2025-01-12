@@ -58,7 +58,6 @@ def _create_grid_with_cells(width, height):
     return grid
 
 
-
 def make_maze_depth_first(maze_width, maze_height):
     """
     Generate a maze using the Depth-First Search (DFS) algorithm.
@@ -224,6 +223,7 @@ def draw_maze(maze_data, path=None):
 
     else:
         print("Maze drawing is disabled by feature flag.")
+
 
 if __name__ == "__main__":
 
