@@ -5,3 +5,4 @@ matplotlib==3.9.4
 mkdocs
 mkdocs-material
 numpy==1.23.5
+flagsmith
